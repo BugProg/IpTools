@@ -38,6 +38,45 @@ def config_api(id_api):
     config.write(id_api)
     config.close()
 
+def config():
+    clear()
+    print(Fore.CYAN+"""
+
+
+    
+    
+        
+
+                                                       d8b               888                     888          
+                                                       Y8P               888                     888          
+                                                                       888                     888          
+                                                       888 88888b.       888888 .d88b.   .d88b.  888 .d8888b  
+                                                       888 888 "88b      888   d88""88b d88""88b 888 88K      
+                                                       888 888  888      888   888  888 888  888 888 "Y8888b. 
+                                                       888 888 d88P      Y88b. Y88..88P Y88..88P 888      X88 
+                                                       888 88888P"        "Y888 "Y88P"   "Y88P"  888  88888P' 
+                                                           888                                                
+                                                           888                                                
+                                                           888                            
+                                                        ___________________________________________________                
+                                                        
+                                                            [1] Clé       [2] Langues        [b] Retour 
+                                                        ___________________________________________________                                                           
+                                                                                                                                                    
+    """+ Fore.RESET)
+    config_menu_choice = input(Fore.CYAN + """                                                        [>] Config : """)
+    if int(config_menu_choice) == 1:
+        config_key = input(Fore.CYAN + """                                                        [>] Clé : """)
+
+        config_txt = open(chemin_txt,"w")
+        config_txt.write(config_key)
+        config_txt.close()
+
+    elif int(config_menu_choice) == 1:
+        print("🚧 En developpement")
+    elif config_menu_choice == "b":
+        main()
+
 def myip():
     clear()
     look = open(chemin_txt,"r")
@@ -123,7 +162,7 @@ def main():
     elif int(main_menu_choice) == 2:
         print("ok")
     elif int(main_menu_choice) == 3:
-        print("ok")
+        config()
     elif int(main_menu_choice) == 4:
         print("ok")
     else:
