@@ -2,45 +2,52 @@ import requests
 import os
 from os import system
 from colorama import Fore, init
+
 init()
 
-chemin_txt = (__file__+"/../config.txt")
+chemin_txt = (__file__ + "/../config.txt")
+
 
 def clear():
     system("cls")
 
+
 def error(message):
     print(Fore.RESET + "[" + Fore.RED + "ERROR" + Fore.RESET + "]", message)
+
 
 def init_page():
     system("title ip")
     system("mode 160, 40")
 
+
 def ip_recup():
-    #API permettant de recuperer son adresse IP v4
+    # API permettant de recuperer son adresse IP v4
     url_ip = "https://api.ipify.org"
 
     reponse = requests.get(url_ip)
     ip_client = reponse.text
 
-    return(ip_client)
+    return (ip_client)
 
-def ip_info(ip,key):
-    url_infoip = f"http://api.ipstack.com/{ip}?access_key={key}" 
 
+def ip_info(ip, key):
+    url_infoip = f"http://api.ipstack.com/{ip}?access_key={key}"
 
     reponse = requests.get(url_infoip)
-    contenu = reponse.json()
-    return(contenu)
+    content = reponse.json()
+    return content
+
 
 def config_api(id_api):
-    config = open(chemin_txt,"w")
-    config.write(id_api)
-    config.close()
+    configuration = open(chemin_txt, "w")
+    configuration.write(id_api)
+    configuration.close()
+
 
 def config():
     clear()
-    print(Fore.CYAN+"""
+    print(Fore.CYAN + """
 
 
     
@@ -63,35 +70,35 @@ def config():
                                                             [1] Clé       [2] Langues        [b] Retour 
                                                         ___________________________________________________                                                           
                                                                                                                                                     
-    """+ Fore.RESET)
+    """ + Fore.RESET)
     config_menu_choice = input(Fore.CYAN + """                                                        [>] Config : """)
     if int(config_menu_choice) == 1:
         config_key = input(Fore.CYAN + """                                                        [>] Clé : """)
 
-        config_txt = open(chemin_txt,"w")
+        config_txt = open(chemin_txt, "w")
         config_txt.write(config_key)
         config_txt.close()
 
     elif int(config_menu_choice) == 1:
-        print("🚧 En developpement")
+        print("🚧 En development")
     elif config_menu_choice == "b":
         main()
 
+
 def myip():
     clear()
-    look = open(chemin_txt,"r")
+    look = open(chemin_txt, "r")
     key = (look.readlines())[0]
     look.close()
 
-
     ip = ip_recup()
-    info = ip_info(ip,key)
+    info = ip_info(ip, key)
     city = info["city"]
     country = info["country_name"]
-    space = (38-8-len(city))
-    space2 = (12-len(country))
-    vp = (Fore.YELLOW+"        "+city+(space*" ")+country+(space2*" ")+Fore.CYAN)
-    print(Fore.CYAN+"""
+    space = (38 - 8 - len(city))
+    space2 = (12 - len(country))
+    vp = (Fore.YELLOW + "        " + city + (space * " ") + country + (space2 * " ") + Fore.CYAN)
+    print(Fore.CYAN + """
 
 
     
@@ -111,14 +118,15 @@ def myip():
                                                            888                            
 
                                                         ╔══════════════════════════════════════════════════╗
-                                                        ║                   """+Fore.YELLOW+ip+Fore.CYAN+"""                  ║ 
+                                                        ║                   """ + Fore.YELLOW + ip + Fore.CYAN + """                  ║ 
                                                         ║        Ville                         Pays        ║ 
-                                                        ║"""+vp+"""║
+                                                        ║""" + vp + """║
                                                         ╚══════════════════════════════════════════════════╝        
-    """+ Fore.RESET)
+    """ + Fore.RESET)
+
 
 def main():
-    print(Fore.CYAN+"""
+    print(Fore.CYAN + """
 
 
     
@@ -143,10 +151,10 @@ def main():
                                                           [4] A propos    [!] Coming Soon
                                                         ___________________________________________________                                                           
                                                                                                                                                     
-    """+ Fore.RESET)
+    """ + Fore.RESET)
     main_menu_choice = input(Fore.CYAN + """                                                        [>] Menu : """)
     if int(main_menu_choice) == 1:
-        look = open(chemin_txt,"r")
+        look = open(chemin_txt, "r")
         text = look.readlines()
         look.close()
 
@@ -158,7 +166,7 @@ def main():
             error("La clé à été mal configuré :/")
         else:
             myip()
-        
+
     elif int(main_menu_choice) == 2:
         print("ok")
     elif int(main_menu_choice) == 3:
@@ -168,9 +176,8 @@ def main():
     else:
         print("NON")
 
+
 init_page()
 
 clear()
 main()
-
-
